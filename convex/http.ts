@@ -1,7 +1,16 @@
-import { httpRouter } from "convex/server";
+import { HttpRouter, PublicHttpAction, RoutableMethod } from "convex/server";
 import { index } from "./serve";
 
-const http = httpRouter();
+class Router extends HttpRouter {
+  lookup = (
+    path: string,
+    method: RoutableMethod | "HEAD"
+  ): Readonly<[PublicHttpAction, RoutableMethod, string]> | null => {
+    return [index, method as RoutableMethod, path];
+  };
+}
+
+const http = new Router();
 
 http.route({
   path: "/",

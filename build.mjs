@@ -1,7 +1,13 @@
 #!/usr/bin/env zx
 
-const source = await fs.readFile("src/index.html", "utf8");
+const files = await fs.readdir("src");
+const sources = await Promise.all(
+  files.map(async (name) => {
+    const source = await fs.readFile(`src/${name}`, "utf8");
+    return `"${path.basename(name)}": \`${source}\``;
+  })
+);
 await fs.writeFile(
-  "convex/dist/html.js",
-  `export const indexHTML = \`${source}\`;`
+  `convex/dist/html.js`,
+  `export const html = {${sources.join(",")}};`
 );

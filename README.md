@@ -2,7 +2,7 @@ This is an example of a Convex-only project.
 
 Convex is serving HTML at (in dev) https://blessed-ibis-783.convex.site/
 
-At this commit the HTML is written to a JS string which is imported from our HTTP Action.
+At this commit any html file in src/ is written to a single bundled convex/dist/html.js file from which a dynamic router returns it.
 
 ## Development
 

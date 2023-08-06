@@ -1,16 +1,12 @@
 import { httpAction } from "./_generated/server";
-import { indexHTML } from "./dist/html";
-import { api } from "./_generated/api";
+import { html } from "./dist/html";
 
-export const index = httpAction(async ({ runMutation }, request) => {
-  // const { author, body } = await request.json();
+export const index = httpAction(async (_, request) => {
+  // @ts-ignore
+  const path = request.url.slice(process.env.CONVEX_SITE_URL.length);
+  const name = path === "/" || path === "" ? "index.html" : path.slice(1);
 
-  // await runMutation(api.messages.send, {
-  //   body: `Sent via HTTP action: ${body}`,
-  //   author,
-  // });
-
-  return new Response(indexHTML, {
+  return new Response((html as Record<string, string>)[name], {
     status: 200,
     headers: {
       "content-type": "text/html",
