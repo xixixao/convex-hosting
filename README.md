@@ -6,11 +6,14 @@ At this commit any html file in src/ is written to a single bundled convex/dist/
 
 ## Development
 
-First terminal window:
+First terminal window (pushed to the deployment):
 `npx convex dev`
 
-Second terminal window:
-`chokidar build.mjs 'src/**/*' -c "zx build.mjs"`
+Second terminal window (takes the files produced by Remix and wraps them in the JS file we serve from):
+`chokidar build.mjs 'app/**/*' -c "zx build.mjs"`
+
+Third terminal window (builds the served files from React sources):
+`npx remix watch`
 
 ## Setup
 
