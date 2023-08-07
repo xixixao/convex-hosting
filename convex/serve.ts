@@ -6,7 +6,7 @@ import { mimeTypes } from "mime-wrapper";
 
 import * as build from "../build";
 
-export const index = httpAction(async (_, request) => {
+export const index = httpAction(async (ctx, request) => {
   const url = new URL(request.url);
   const path = url.pathname === "/" ? "/index.html" : url.pathname;
   if (path.startsWith("/build/")) {
@@ -29,12 +29,17 @@ export const index = httpAction(async (_, request) => {
         if (prop === "signal") {
           return {
             addEventListener() {},
+            removeEventListener() {},
           };
+        }
+        if (prop === "body") {
+          return (target as any)._body;
         }
 
         return Reflect.get(target, prop, receiver);
       },
-    })
+    }),
+    { ctx }
   );
 
   // const path = request.url.slice(process.env.CONVEX_SITE_URL!.length);

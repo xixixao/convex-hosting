@@ -17,6 +17,7 @@ import type {
 import type * as dist_html from "../dist/html";
 import type * as http from "../http";
 import type * as serve from "../serve";
+import type * as tasks from "../tasks";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   "dist/html": typeof dist_html;
   http: typeof http;
   serve: typeof serve;
+  tasks: typeof tasks;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
