@@ -1,12 +1,12 @@
 import { useLoaderData } from "@remix-run/react";
 import { json, LoaderArgs } from "../utils";
-import { internal } from "../../convex/_generated/api";
+import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import { useState } from "react";
 
 export const loader = async ({ context: { ctx }, params }: LoaderArgs) => {
   return json({
-    task: await ctx.runQuery(internal.tasks.get, {
+    task: await ctx.runQuery(api.tasks.get, {
       id: params.id! as Id<"tasks">,
     }),
   });

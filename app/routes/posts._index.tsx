@@ -1,13 +1,18 @@
 import { Link, useLoaderData } from "@remix-run/react";
-import { internal } from "../../convex/_generated/api";
+import { api } from "../../convex/_generated/api";
 import { LoaderArgs, json } from "../utils";
+import { useState } from "react";
+import { useQuery } from "convex/react";
 
 export const loader = async ({ context: { ctx } }: LoaderArgs) => {
-  return json({ tasks: await ctx.runQuery(internal.tasks.all) });
+  return json({ tasks: await ctx.runQuery(api.tasks.all) });
 };
 
 export default function Posts() {
-  const { tasks } = useLoaderData<typeof loader>();
+  const { tasks: initialTasks } = useLoaderData<typeof loader>();
+  const liveTasks =
+    typeof window === "undefined" ? undefined : useQuery(api.tasks.all);
+  const tasks = liveTasks ?? initialTasks;
   return (
     <main>
       <h1>Posts</h1>
