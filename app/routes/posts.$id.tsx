@@ -1,8 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
-import { json, LoaderArgs } from "../utils";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import { useState } from "react";
+import { LoaderArgs, json } from "@remix-run/deno";
 
 export const loader = async ({ context: { ctx }, params }: LoaderArgs) => {
   return json({

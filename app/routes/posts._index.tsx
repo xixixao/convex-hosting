@@ -1,6 +1,5 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { api } from "../../convex/_generated/api";
-import { LoaderArgs, json } from "../utils";
 import { useQuery as convexUseQuery } from "convex/react";
 import { ConvexHttpClient } from "convex/browser";
 import { useAsync } from "react-streaming";
@@ -10,6 +9,7 @@ import {
   getFunctionName,
 } from "convex/server";
 import { convexToJson } from "convex/values";
+import { useEffect } from "react";
 
 export default function Posts() {
   const tasks = useQuery(api.tasks.all);
@@ -35,7 +35,13 @@ export function useQuery<Query extends FunctionReference<"query">>(
 ): Query["_returnType"] | undefined {
   const ssr = useAsync(
     [getFunctionName(query), convexToJson(args[0] ?? {})],
-    () => new ConvexHttpClient("http://127.0.0.1:22161").query(query, ...args)
+    () =>
+      typeof window === "undefined"
+        ? new ConvexHttpClient(process.env.CONVEX_CLOUD_URL!).query(
+            query,
+            ...args
+          )
+        : undefined
   );
   const live =
     typeof window === "undefined" ? undefined : convexUseQuery(query, ...args);

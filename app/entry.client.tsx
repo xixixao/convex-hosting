@@ -4,8 +4,8 @@ import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 
 const convex = new ConvexReactClient(
-  "http://127.0.0.1:22161"
-  // process.env.CONVEX_URL!
+  // @ts-ignore
+  window.ENV.URL
 );
 
 startTransition(() => {
