@@ -1,7 +1,7 @@
 import { httpAction } from "./_generated/server";
 import { html } from "./dist/html";
 import { createRequestHandler } from "@remix-run/server-runtime";
-import "web-streams-polyfill/es2018";
+// import "web-streams-polyfill/es2018";
 import { mimeTypes } from "mime-wrapper";
 
 import * as build from "../build";

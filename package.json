@@ -18,11 +18,11 @@
     "@remix-run/serve": "^1.19.2",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
-    "convex": "^0.19.0",
+    "convex": "^1.0.3",
     "isbot": "latest",
     "mime-wrapper": "^2.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.3.0-canary-b27725923-20230821",
+    "react-dom": "18.3.0-canary-b27725923-20230821",
     "web-streams-polyfill": "^3.2.1"
   }
 }
