@@ -23,6 +23,7 @@
     "mime-wrapper": "^2.0.0",
     "react": "18.3.0-canary-b27725923-20230821",
     "react-dom": "18.3.0-canary-b27725923-20230821",
+    "react-streaming": "^0.3.14",
     "web-streams-polyfill": "^3.2.1"
   }
 }

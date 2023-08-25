@@ -1,6 +1,8 @@
 import type { AppLoadContext, EntryContext } from "@remix-run/deno";
 import { RemixServer } from "@remix-run/react";
+// @ts-ignore
 import { renderToReadableStream } from "react-dom/server.browser";
+import { renderToStream } from "react-streaming/server";
 
 export default async function handleRequest(
   request: Request,
@@ -12,8 +14,12 @@ export default async function handleRequest(
   // TODO: When Convex implements streaming change it back to
   // renderToReadableStream from react-dom/server.browser
   // const body = renderToString(
-  const body = await renderToReadableStream(
-    <RemixServer context={remixContext} url={request.url} />
+  const { readable: body } = await renderToStream(
+    <RemixServer context={remixContext} url={request.url} />,
+    {
+      renderToReadableStream: renderToReadableStream,
+      userAgent: request.headers.get("User-Agent") ?? undefined,
+    }
     // {
     //   signal: request.signal,
     //   onError(error: unknown) {
