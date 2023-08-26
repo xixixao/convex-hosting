@@ -11,6 +11,7 @@ export default async function handleRequest(
   remixContext: EntryContext,
   loadContext: AppLoadContext
 ) {
+  (globalThis as any).__ctx = loadContext.ctx;
   // TODO: When Convex implements streaming change it back to
   // renderToReadableStream from react-dom/server.browser
   // const body = renderToString(

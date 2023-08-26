@@ -1,4 +1,3 @@
-import { ConvexHttpClient } from "convex/browser";
 import { useQuery as convexUseQuery } from "convex/react";
 import {
   FunctionReference,
@@ -7,6 +6,7 @@ import {
 } from "convex/server";
 import { convexToJson } from "convex/values";
 import { useAsync } from "react-streaming";
+import { ActionCtx } from "../convex/_generated/server";
 
 export function useQuery<Query extends FunctionReference<"query">>(
   query: Query,
@@ -16,7 +16,7 @@ export function useQuery<Query extends FunctionReference<"query">>(
     [getFunctionName(query), convexToJson(args[0] ?? {})],
     () =>
       typeof window === "undefined"
-        ? new ConvexHttpClient(process.env.CONVEX_CLOUD_URL!).query(
+        ? (globalThis as unknown as { __ctx: ActionCtx }).__ctx.runQuery(
             query,
             ...args
           )
