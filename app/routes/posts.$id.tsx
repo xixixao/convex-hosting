@@ -1,19 +1,14 @@
-import { useLoaderData } from "@remix-run/react";
+import { useParams } from "@remix-run/react";
+import { useState } from "react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
-import { useState } from "react";
-import { LoaderArgs, json } from "@remix-run/deno";
-
-export const loader = async ({ context: { ctx }, params }: LoaderArgs) => {
-  return json({
-    task: await ctx.runQuery(api.tasks.get, {
-      id: params.id! as Id<"tasks">,
-    }),
-  });
-};
+import { useQuery } from "../hooks";
 
 export default function PostSlug() {
-  const { task } = useLoaderData<typeof loader>();
+  const { id } = useParams();
+  const task = useQuery(api.tasks.get, {
+    id: id! as Id<"tasks">,
+  });
   const [count, setCount] = useState(0);
   return (
     <main className="mx-auto max-w-4xl">
