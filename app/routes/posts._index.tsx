@@ -10,7 +10,11 @@ export default function Posts() {
       <ul>
         {tasks?.map((task) => (
           <li key={task._id}>
-            <Link to={task._id} className="text-blue-600 underline">
+            <Link
+              to={task._id}
+              prefetch="viewport"
+              className="text-blue-600 underline"
+            >
               {task.text}
             </Link>
           </li>

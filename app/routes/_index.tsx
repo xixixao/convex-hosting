@@ -11,7 +11,11 @@ export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Hello world!</h1>
-      <Link to="/posts" className="text-xl text-blue-600 underline">
+      <Link
+        to="/posts"
+        prefetch="viewport"
+        className="text-xl text-blue-600 underline"
+      >
         Blog Posts
       </Link>
     </div>
