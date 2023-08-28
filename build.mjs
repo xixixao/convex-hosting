@@ -4,7 +4,7 @@ let sources = [];
 
 await readFiles("public");
 
-await fs.mkdir("convex/dist");
+await fs.mkdir("convex/dist", { recursive: true });
 await fs.writeFile(
   `convex/dist/html.js`,
   `export const html = {${sources.join(",")}};`
