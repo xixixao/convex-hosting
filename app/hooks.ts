@@ -7,7 +7,6 @@ import {
 import { convexToJson } from "convex/values";
 import { useAsync } from "react-streaming";
 import { ActionCtx } from "../convex/_generated/server";
-import { useEffect, useMemo, useRef } from "react";
 
 export function useQuery<Query extends FunctionReference<"query">>(
   query: Query,
@@ -40,9 +39,6 @@ export function useQuery<Query extends FunctionReference<"query">>(
   // transition, suspend!
   let resume;
   const watch = convex.watchQuery(query, ...args);
-  watch.onUpdate(() => {
-    resume!();
-  });
 
   // TODO: This is caused by BS inside useQueries,
   // `convexUseQuery` doesn't return the value on
@@ -51,6 +47,11 @@ export function useQuery<Query extends FunctionReference<"query">>(
   if (live_REMOVE !== undefined) {
     return live_REMOVE;
   }
+
+  watch.onUpdate(() => {
+    resume!();
+  });
+
   // END TODO
 
   throw new Promise((resolve) => {
